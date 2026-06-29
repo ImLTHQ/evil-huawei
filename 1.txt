@@ -1,0 +1,5 @@
+npm install
+npm run build
+npx serve public
+# 或者使用 Python（如果已安装）
+python -m http.server 8000 --directory public

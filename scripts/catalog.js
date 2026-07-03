@@ -17,11 +17,11 @@ const genCatalog = async () => {
     const templatePath = path.join(__dirname, '../README.template.md');
     const templateFile = await fsPromises.readFile(templatePath);
     const links = subDirs
-        .map((dir) => `- [${dir}](./events/${dir.replace(/ /g, '%20')}/)`)
+        .map((dir) => `  <li><a href="./events/${encodeURI(dir)}/">${dir}</a></li>`)
         .join('\n');
 
     const comment = '<!-- This file is automatic generated, please edit template file instead. -->';
-    const generatedDoc = templateFile.toString().replace('{{catelog_links}}', links);
+    const generatedDoc = templateFile.toString().replace('{{catelog_links}}', `<ul class="index-list">\n${links}\n</ul>`);
     const docPath = path.join(__dirname, '../README.md');
     fsPromises.writeFile(docPath, comment + '\n' + generatedDoc);
 };
